@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GN-MATH | 1000+ Unblocked Games</title>
+    <style>
+        :root {
+            --primary: #fc2651;
+            --primary-hover: #ff4d75;
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --glass: rgba(30, 41, 59, 0.7);
+            --radius: 12px;
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.5);
+        }
+
+        body {
+            font-family: -apple-system, system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #fc2651 0%, #e91e47 100%);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; }
+
+        .search-container {
+            display: flex;
+            flex: 1;
+            max-width: 600px;
+            gap: 0.5rem;
+        }
+
+        #searchBar, #filterOptions {
+            padding: 0.75rem;
+            border-radius: var(--radius);
+            border: none;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            outline: none;
+        }
+
+        #searchBar { flex: 2; }
+        #searchBar::placeholder { color: rgba(255,255,255,0.7); }
+
+        main { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .game-card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary);
+        }
+
+        .game-card img {
+            width: 100%;
+            aspect-ratio: 16/10;
+            object-fit: cover;
+            background: #000;
+        }
+
+        .game-info { padding: 0.8rem; }
+        .game-title { font-size: 0.95rem; font-weight: 700; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .game-cat { font-size: 0.7rem; color: var(--primary); font-weight: 800; text-transform: uppercase; }
+
+        #zoneCount { margin-bottom: 1rem; font-weight: 600; color: var(--text-muted); }
+
+        @media (max-width: 600px) {
+            .header-content { flex-direction: column; }
+            .search-container { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-content">
+        <div class="logo">GN-MATH</div>
+        <div class="search-container">
+            <input type="text" id="searchBar" placeholder="Search 1,000+ games...">
+            <select id="filterOptions">
+                <option value="All">All Genres</option>
+                <option value="Action">Action</option>
+                <option value="Skill">Skill</option>
+                <option value="Sports">Sports</option>
+                <option value="Driving">Driving</option>
+            </select>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div id="zoneCount">Loading Games...</div>
+    <div class="game-grid" id="gameGrid"></div>
+</main>
+
+<script>
+    // 1. DATABASE OF REAL POPULAR GAMES
+    const realGames = [
+        { title: "1v1.LOL", category: "Action", img: "https://1v1.lol" },
+        { title: "Shell Shockers", category: "Action", img: "https://shellshock.io" },
+        { title: "Slope", category: "Skill", img: "https://slopegame.io" },
+        { title: "Retro Bowl", category: "Sports", img: "https://via.placeholder.com" },
+        { title: "Drive Mad", category: "Driving", img: "https://img.gamedistribution.com" },
+        { title: "Tunnel Rush", category: "Skill", img: "https://edupure.github.io" },
+        { title: "Minecraft Classic", category: "Classic", img: "https://classic.minecraft.net" },
+        { title: "Basketball Stars", category: "Sports", img: "https://edupure.github.io" },
+        { title: "Geometry Dash", category: "Skill", img: "https://upload.wikimedia.org" },
+        { title: "Subway Surfers", category: "Skill", img: "https://via.placeholder.com" }
+    ];
+
+    // 2. GENERATOR ENGINE (REACHES 1000)
+    const adjs = ["Cyber", "Neon", "Super", "Hyper", "Dark", "Epic", "Mega", "Ultimate", "Crazy", "Alpha"];
+    const nouns = ["Drift", "Striker", "Combat", "Runner", "Quest", "Jump", "Dash", "Battle", "Baller", "Slayer"];
+    const cats = ["Action", "Skill", "Sports", "Driving"];
+
+    const games = [...realGames];
+
+    for (let i = games.length; i < 1000; i++) {
+        const title = adjs[i % 10] + " " + nouns[Math.floor(Math.random() * 10)] + " " + (i + 1);
+        games.push({
+            title: title,
+            category: cats[i % 4],
+            img: `https://picsum.photos{i + 123}/200/120` // Unique high-quality visuals
+        });
+    }
+
+    // 3. RENDER ENGINE
+    function display() {
+        const search = document.getElementById('searchBar').value.toLowerCase();
+        const cat = document.getElementById('filterOptions').value;
+        const grid = document.getElementById('gameGrid');
+
+        const filtered = games.filter(g => {
+            const mSearch = g.title.toLowerCase().includes(search);
+            const mCat = cat === "All" || g.category === cat;
+            return mSearch && mCat;
+        });
+
+        // Limit initial render to 100 for speed, show more on search
+        grid.innerHTML = filtered.slice(0, 500).map(g => `
+            <a href="#" class="game-card" onclick="alert('Starting ${g.title}...')">
+                <img src="${g.img}" loading="lazy">
+                <div class="game-info">
+                    <h3 class="game-title">${g.title}</h3>
+                    <span class="game-cat">${g.category}</span>
+                </div>
+            </a>
+        `).join('');
+
+        document.getElementById('zoneCount').innerText = `${filtered.length} Games Unblocked`;
+    }
+
+    document.getElementById('searchBar').addEventListener('input', display);
+    document.getElementById('filterOptions').addEventListener('change', display);
+
+    display(); // Run on startup
+</script>
+
+</body>
+</html>
